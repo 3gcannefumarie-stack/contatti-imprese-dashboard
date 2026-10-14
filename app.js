@@ -79,6 +79,9 @@
     const address = text(raw.address);
     const region = text(raw.region);
     const publicListing = raw.publicListing === true;
+    const verificationStatus = raw.verificationStatus === "unconfirmed"
+      ? "unconfirmed"
+      : publicListing ? "verified" : "private";
 
     if (!company || !ALLOWED_REGIONS.has(region)) return null;
     if (/\bVR\b/i.test(`${address} ${location}`)) return null;
@@ -97,8 +100,12 @@
       sourceLabel: text(raw.sourceLabel) || (publicListing ? "Fonte pubblica" : "Importato localmente"),
       sourceUrl: safeUrl(raw.sourceUrl),
       verifiedAt: text(raw.verifiedAt),
-      quality: publicListing ? "Fonte pubblica verificata" : "Da verificare",
+      quality: verificationStatus === "verified"
+        ? "Fonte pubblica verificata"
+        : verificationStatus === "unconfirmed" ? "Email non verificata" : "Da verificare",
       publicListing,
+      verificationStatus,
+      sourceCheckedAt: text(raw.sourceCheckedAt),
       status: text(raw.status) || "Da contattare",
       nextContact: text(raw.nextContact),
       notes: text(raw.notes),
@@ -176,8 +183,13 @@
     const subtitle = [contact.category, contact.name && contact.name !== contact.company ? contact.name : ""].filter(Boolean).join(" · ");
     if (subtitle) appendText(title, "p", "card-subtitle", subtitle);
     heading.append(title);
-    const badge = appendText(heading, "span", `quality-badge${contact.publicListing ? "" : " review"}`, contact.publicListing ? "Fonte verificata" : "Da verificare");
-    badge.title = contact.publicListing ? "Recapito professionale pubblicato nella fonte indicata e verificato" : "Dato importato, non verificato per la pubblicazione";
+    const isVerified = contact.verificationStatus === "verified";
+    const isUnconfirmed = contact.verificationStatus === "unconfirmed";
+    const badgeText = isVerified ? "Fonte verificata" : isUnconfirmed ? "Email non verificata" : "Da verificare";
+    const badge = appendText(heading, "span", `quality-badge${isVerified ? "" : " review"}`, badgeText);
+    badge.title = isVerified
+      ? "Recapito professionale pubblicato nella fonte indicata e verificato"
+      : isUnconfirmed ? "Email importata dall'archivio fornito dall'utente; non confermata online" : "Dato importato, non verificato per la pubblicazione";
     card.append(heading);
 
     const location = [contact.address, contact.location, contact.region].filter(Boolean).join(" · ");
@@ -213,6 +225,7 @@
     if (contact.sourceUrl) appendLink(source, "Fonte ↗", contact.sourceUrl, "", `Apri fonte: ${contact.sourceUrl}`);
     else if (contact.verifiedAt) appendText(source, "span", "", "Fonte URL non disponibile");
     if (contact.verifiedAt) appendText(source, "span", "", `Verificato ${contact.verifiedAt}`);
+    else if (contact.sourceCheckedAt) appendText(source, "span", "", `Importato dall’archivio ${contact.sourceCheckedAt}`);
     card.append(source);
 
     const trackingSection = document.createElement("div");
@@ -276,16 +289,21 @@
     });
 
     elements.list.replaceChildren(...filtered.map(cardFor));
-    elements.count.textContent = state.view === "public"
-      ? `${filtered.length} ${filtered.length === 1 ? "contatto pubblico verificato" : "contatti pubblici verificati"}`
-      : `${filtered.length} ${filtered.length === 1 ? "contatto nell’archivio locale" : "contatti nell’archivio locale"}`;
+    if (state.view === "public") {
+      const verified = filtered.filter((contact) => contact.verificationStatus === "verified").length;
+      const unconfirmed = filtered.length - verified;
+      elements.count.textContent = `${filtered.length} contatti trovati · ${verified} verificati, ${unconfirmed} email non confermate`;
+    } else {
+      elements.count.textContent = `${filtered.length} ${filtered.length === 1 ? "contatto nell’archivio locale" : "contatti nell’archivio locale"}`;
+    }
     elements.empty.hidden = filtered.length > 0;
     elements.emptyCopy.textContent = state.view === "public"
-      ? "La directory è in costruzione e contiene solo recapiti verificati. Importa il tuo archivio privato o modifica i filtri."
+      ? "La directory contiene recapiti verificati e schede email non confermate, chiaramente segnalate. Importa il tuo archivio privato o modifica i filtri."
       : "Importa il file contatti-locali.json oppure aggiungi un contatto privato.";
     document.querySelector("#public-count").textContent = String(state.publicContacts.length);
     document.querySelector("#private-count").textContent = String(state.privateContacts.length);
-    document.querySelector("#verified-stat").textContent = String(state.publicContacts.length);
+    document.querySelector("#verified-stat").textContent = String(state.publicContacts.filter((contact) => contact.verificationStatus === "verified").length);
+    document.querySelector("#unconfirmed-stat").textContent = String(state.publicContacts.filter((contact) => contact.verificationStatus === "unconfirmed").length);
     document.querySelector("#local-stat").textContent = String(state.privateContacts.length);
     elements.title.textContent = state.view === "public" ? "Directory pubblica" : "Miei contatti";
     elements.privacyNotice.hidden = state.view === "private";

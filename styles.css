@@ -108,7 +108,7 @@ kbd { color: #93a09e; font: 10px "Segoe UI", Arial, sans-serif; border: 1px soli
 .coverage { display: grid; grid-template-columns: 1fr 1.1fr; gap: 35px; align-items: center; padding: 67px 0 52px; }
 .coverage .eyebrow { margin-bottom: 11px; }
 .coverage h2 { font-size: 25px; line-height: 1.25; }
-.coverage-stats { display: flex; gap: 35px; }
+.coverage-stats { display: flex; gap: 22px; flex-wrap: wrap; }
 .coverage-stats div { display: flex; align-items: center; gap: 9px; }
 .coverage-stats strong { color: var(--teal); font: 800 27px "Segoe UI", Arial, sans-serif; letter-spacing: -.05em; }
 .coverage-stats span { color: #74817f; font-size: 10px; line-height: 1.4; }

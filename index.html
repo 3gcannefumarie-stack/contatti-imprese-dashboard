@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#132b31">
     <meta name="description" content="Rubrica di contatti professionali per imprese e amministratori nelle province di Brescia, Mantova, Vicenza e Alto Garda.">
     <title>Rubrica imprese e amministratori</title>
-    <link rel="stylesheet" href="styles.css?v=2">
+    <link rel="stylesheet" href="styles.css?v=3">
     <script src="public-contacts.js?v=3" defer></script>
     <script src="public-contacts-vicenza.js?v=1" defer></script>
     <script src="public-contacts-brescia-mantova.js?v=1" defer></script>
@@ -16,7 +16,8 @@
     <script src="public-contacts-chimney-2026-10.js?v=1" defer></script>
     <script src="public-contacts-garda-admin-2026-10.js?v=1" defer></script>
     <script src="public-contacts-garda-trades-2026-10.js?v=1" defer></script>
-    <script src="app.js?v=3" defer></script>
+    <script src="public-contacts-unconfirmed-email-2026-10.js?v=1" defer></script>
+    <script src="app.js?v=4" defer></script>
   </head>
   <body>
     <div class="page-shell">
@@ -56,7 +57,7 @@
 
           <div id="privacy-notice" class="notice">
             <span class="notice-icon" aria-hidden="true">i</span>
-            <p><strong>Elenco verificato, non esaustivo.</strong> Qui compaiono recapiti professionali pubblicati su fonti pubbliche primarie e controllati alla data indicata. I nominativi ANACI di Vicenza provengono dall’elenco associativo 2025. I fogli originali non sono pubblicati.</p>
+            <p><strong>Elenco non esaustivo, con livelli di affidabilità distinti.</strong> Le schede verificate riportano fonti pubbliche e date di controllo. Le email non confermate sono importate dall’archivio fornito dall’utente, non verificate online e chiaramente contrassegnate; per queste non pubblichiamo nominativi individuali, telefoni, indirizzi o note private. I fogli originali non sono pubblicati.</p>
           </div>
 
           <div class="private-tools" id="private-tools" hidden>
@@ -106,7 +107,7 @@
 
           <div class="results-bar">
             <p id="results-count" aria-live="polite">Caricamento rubrica…</p>
-            <span class="quality-key"><i class="quality-dot quality-verified"></i> Fonte verificata <i class="quality-dot quality-review"></i> Da verificare</span>
+            <span class="quality-key"><i class="quality-dot quality-verified"></i> Fonte verificata <i class="quality-dot quality-review"></i> Email non verificata</span>
           </div>
 
           <div id="contact-panel" role="tabpanel" aria-labelledby="tab-public">
@@ -130,11 +131,12 @@
             <h2>Meglio pochi dati solidi<br>che una lista senza fonti.</h2>
           </div>
           <div class="coverage-stats">
-            <div><strong id="verified-stat">0</strong><span>contatti pubblici<br>verificati</span></div>
+            <div><strong id="verified-stat">0</strong><span>contatti<br>verificati</span></div>
             <div><strong id="local-stat">0</strong><span>contatti privati<br>da verificare</span></div>
+            <div><strong id="unconfirmed-stat">0</strong><span>email in lista<br>non confermate</span></div>
             <div><strong>0</strong><span>contatti della<br>provincia di Verona</span></div>
           </div>
-          <p class="coverage-footnote">Copertura pubblica attuale: 70 recapiti deduplicati dall’elenco ANACI Vicenza 2025; 5 studi di amministrazione a Mantova, 5 a Brescia e 4 nell’Alto Garda trentino; 33 imprese verificate di edilizia, idraulica/termoidraulica, riscaldamento e fumisteria in Brescia, Mantova, Vicenza e Alto Garda. I recapiti aziendali provengono dai siti ufficiali; alcune schede non pubblicano email o telefono. La raccolta non è esaustiva: restano da ampliare le imprese edili, gli installatori e i fumisti e le amministrazioni nelle aree meno coperte. I contatti dei fogli originali restano nell’archivio privato, da verificare. Nessun dato mancante è stato dedotto o inventato.</p>
+          <p class="coverage-footnote">Copertura verificata: 70 recapiti deduplicati dall’elenco ANACI Vicenza 2025; 14 studi di amministrazione e 33 imprese controllati su fonti pubbliche. Sono state aggiunte 25 schede anonime con 27 email distinte derivate dall’archivio privato: 9 per Brescia, 11 per Mantova e 5 per Vicenza. Non sono confermate online e non si presentano come recapiti verificati. Le schede riportano solo un identificativo generico, categoria, provincia ed email; 49 indirizzi dell’archivio già presenti nella directory pubblica sono stati esclusi. Non risultano voci dell’archivio privato per l’Alto Garda. La raccolta non è esaustiva: restano da ampliare imprese e amministrazioni, soprattutto nelle aree meno coperte. I fogli originali non sono pubblicati; nessun dato mancante è stato dedotto o inventato.</p>
         </section>
       </main>
 
