@@ -36,5 +36,24 @@ window.PUBLIC_CONTACTS.push(...[
     status: "Da contattare",
     nextContact: "",
     notes: "La pagina contatti ufficiale indica la sede in Viale Marconi 9 a Toscolano Maderno e il telefono dello studio. Il sito descrive l'attivita di amministrazione condominiale; non pubblica un indirizzo email leggibile, percio il campo e lasciato vuoto."
+  },
+  {
+    id: "condominio-trentino-arco",
+    name: "",
+    company: "CondominioTrentino",
+    location: "Arco (TN)",
+    region: "Alto Garda trentino",
+    category: "Amministrazione condominiale",
+    email: "info@condominiotrentino.it",
+    phone: "",
+    website: "https://condominiotrentino.it/",
+    sourceLabel: "Sito ufficiale · contatti",
+    sourceUrl: "https://condominiotrentino.it/contattaci/",
+    verifiedAt: "2026-10-14",
+    quality: "Fonte pubblica verificata",
+    publicListing: true,
+    status: "Da contattare",
+    nextContact: "",
+    notes: "Il sito ufficiale descrive servizi di amministrazione condominiale e indica Arco come sede, oltre a Riva del Garda e comuni limitrofi come aree servite. La pagina contatti pubblica l'email aziendale; non e stato inserito un telefono non reperito."
   }
 ]);
