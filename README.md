@@ -8,6 +8,8 @@ Apri `index.html` in un browser o pubblica i file statici con GitHub Pages. La d
 
 Per caricare i contatti già raccolti, passa a **Miei contatti** e importa `contatti-locali.json`, presente nella cartella di lavoro ma non pubblicato. L'archivio personale e le note di follow-up vengono salvati nel `localStorage` del browser; non sono inviati al server. Usa **Esporta archivio** per salvare una copia privata. Questi dati resteranno sul dispositivo e nel profilo browser utilizzati per l'importazione.
 
+La funzione **Prepara email** crea un file `.eml` da aprire in Thunderbird: gli indirizzi sono messi in Ccn, deduplicati e filtrati usando il flag **Non contattare**. Per impostazione iniziale considera la directory pubblica, incluse le email non verificate; puoi deselezionare queste ultime o includere anche i contatti privati caricati in quel browser. La funzione non invia nulla e non verifica il consenso: controlla destinatari e contenuto e assicurati di poter legittimamente contattare ciascun destinatario prima dell'invio. Thunderbird deve avere configurato l'account `tecnico@tregcannefumarie.it`.
+
 ## Fonti e limiti
 
 - La directory distingue in modo esplicito recapiti verificati e email non confermate. I primi provengono da fonti pubbliche primarie e riportano la data di controllo. La fonte ANACI Vicenza elenca gli amministratori iscritti 2025: 79 righe in provincia sono state deduplicate in 70 recapiti email unici, aggregando i nominativi che condividono lo stesso recapito. Sono stati riportati nome, comune, email e telefono pubblicati, non gli indirizzi degli uffici; la fonte associativa è linkata su ogni scheda.
