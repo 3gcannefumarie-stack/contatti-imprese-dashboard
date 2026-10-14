@@ -7,7 +7,7 @@
     <meta name="description" content="Rubrica di contatti professionali per imprese e amministratori nelle province di Brescia, Mantova, Vicenza e Alto Garda.">
     <title>Rubrica imprese e amministratori</title>
     <link rel="stylesheet" href="styles.css?v=4">
-    <script src="public-contacts.js?v=3" defer></script>
+    <script src="public-contacts.js?v=4" defer></script>
     <script src="public-contacts-vicenza.js?v=1" defer></script>
     <script src="public-contacts-brescia-mantova.js?v=1" defer></script>
     <script src="public-contacts-trades-2026-10.js?v=1" defer></script>
@@ -18,7 +18,7 @@
     <script src="public-contacts-garda-trades-2026-10.js?v=1" defer></script>
     <script src="public-contacts-unconfirmed-email-2026-10.js?v=1" defer></script>
     <script src="public-contacts-material-suppliers-2026-10.js?v=1" defer></script>
-    <script src="app.js?v=7" defer></script>
+    <script src="app.js?v=8" defer></script>
   </head>
   <body>
     <div class="page-shell">
@@ -54,14 +54,6 @@
               <button class="tab is-active" id="tab-public" role="tab" aria-selected="true" aria-controls="contact-panel" data-view="public">Directory pubblica <span id="public-count" class="tab-count">0</span></button>
               <button class="tab" id="tab-private" role="tab" aria-selected="false" aria-controls="contact-panel" data-view="private">Miei contatti <span id="private-count" class="tab-count">0</span></button>
             </div>
-          </div>
-
-          <div class="bulk-email-bar">
-            <div>
-              <strong>Prepara una comunicazione</strong>
-              <p>Crea una bozza per Thunderbird con i destinatari in Ccn; l’invio resta manuale.</p>
-            </div>
-            <button class="button button-primary" id="bulk-email-button" type="button">Prepara email</button>
           </div>
 
           <div id="privacy-notice" class="notice">
@@ -131,7 +123,7 @@
 
           <footer class="workspace-footer">
             <span>Ogni scheda include la fonte e la data di verifica, quando disponibili.</span>
-            <span>Bozza in Ccn per Thunderbird · invio manuale</span>
+            <span>Recapiti pubblicati per consultazione; le email sono mostrate come testo.</span>
           </footer>
         </section>
 
@@ -187,49 +179,5 @@
       </form>
     </dialog>
 
-    <dialog id="bulk-email-dialog" class="contact-dialog bulk-email-dialog">
-      <form id="bulk-email-form">
-        <div class="dialog-head">
-          <div><p class="eyebrow">Bozza email · nessun invio automatico</p><h2>Prepara in Thunderbird</h2></div>
-          <button class="close-button" id="bulk-email-close" type="button" aria-label="Chiudi">×</button>
-        </div>
-        <div class="form-grid">
-          <label class="form-field full-width">Mittente
-            <input type="email" value="tecnico@tregcannefumarie.it" readonly>
-          </label>
-          <label class="form-field full-width">Oggetto
-            <input name="subject" required maxlength="180" value="Presentazione servizi canne fumarie">
-          </label>
-          <label class="form-field full-width">Messaggio
-            <textarea name="body" rows="7" required maxlength="10000">Buongiorno,
-
-vi contatto per presentarvi i nostri servizi relativi a canne fumarie e sistemi fumari. Se il tema è di vostro interesse, sarò lieto di inviarvi maggiori informazioni.
-
-Per non ricevere ulteriori comunicazioni, rispondete a questa email indicando “Non contattare”.
-
-Cordiali saluti,
-tecnico@tregcannefumarie.it</textarea>
-          </label>
-          <label class="bulk-email-option full-width">
-            <input id="include-unconfirmed-emails" type="checkbox" checked>
-            Includi anche le email non verificate <span>(consigliato controllarle prima)</span>
-          </label>
-          <label class="bulk-email-option full-width">
-            <input id="include-private-emails" type="checkbox">
-            Includi anche i contatti salvati nell’archivio privato di questo browser
-          </label>
-          <label class="bulk-email-option full-width">
-            <input id="bulk-email-lawful-basis" type="checkbox" required>
-            Confermo di avere titolo per contattare questi destinatari e di rispettare le richieste di opposizione.
-          </label>
-        </div>
-        <p class="form-hint">La bozza conterrà <strong id="bulk-email-recipient-count">0 destinatari</strong> in Ccn, senza mostrare gli indirizzi tra loro. Thunderbird deve avere configurato l’account mittente. Rivedi destinatari e testo e assicurati di avere titolo e base giuridica per contattarli; questa funzione non verifica il consenso né invia messaggi.</p>
-        <p id="bulk-email-status" class="import-status" role="status" aria-live="polite"></p>
-        <div class="dialog-actions">
-          <button class="button button-secondary" id="bulk-email-cancel" type="button">Annulla</button>
-          <button class="button button-primary" type="submit">Scarica bozza .eml</button>
-        </div>
-      </form>
-    </dialog>
   </body>
 </html>

@@ -8,7 +8,7 @@ Apri `index.html` in un browser o pubblica i file statici con GitHub Pages. La d
 
 Per caricare i contatti già raccolti, passa a **Miei contatti** e importa `contatti-locali.json`, presente nella cartella di lavoro ma non pubblicato. L'archivio personale e le note di follow-up vengono salvati nel `localStorage` del browser; non sono inviati al server. Usa **Esporta archivio** per salvare una copia privata. Questi dati resteranno sul dispositivo e nel profilo browser utilizzati per l'importazione.
 
-La funzione **Prepara email** crea un file `.eml` da aprire in Thunderbird: gli indirizzi sono messi in Ccn, deduplicati e filtrati usando il flag **Non contattare**. Per impostazione iniziale considera la directory pubblica, incluse le email non verificate; puoi deselezionare queste ultime o includere anche i contatti privati caricati in quel browser. Per creare la bozza devi confermare di avere titolo a contattare i destinatari e rispettarne le opposizioni. La funzione non invia nulla e non verifica il consenso o la liceità della campagna: controlla destinatari e contenuto prima dell'invio. Thunderbird deve avere configurato l'account `tecnico@tregcannefumarie.it`.
+Gli indirizzi email nelle schede sono mostrati come testo e non avviano un programma di posta.
 
 ## Fonti e limiti
 
@@ -20,7 +20,7 @@ La funzione **Prepara email** crea un file `.eml` da aprire in Thunderbird: gli 
 - Le email da archivio sono marcate **Email non verificata** e la provenienza è indicata senza inventare URL o date di verifica. Il dataset minimale generato è pubblicato, ma i fogli ODS e `contatti-locali.json` restano esclusi dal sito.
 - I fogli ODS originali, gli altri recapiti personali e gli identificativi fiscali non sono pubblicati.
 - La raccolta pubblica non è esaustiva: la copertura amministratori è più ampia a Vicenza (elenco ANACI 2025), mentre Brescia, Mantova e Alto Garda hanno ancora poche schede verificate. La ricerca di amministrazioni, imprese edili, idrauliche, termoidrauliche, fumisti, installatori e fornitori di materiali resta da completare, soprattutto per Nago-Torbole, la sponda bresciana del Garda e le province di Mantova e Vicenza. I fogli originali non sono stati promossi alla directory pubblica perché la loro presenza non verifica da sola i recapiti.
-- La dashboard apre le email singolarmente nel programma di posta dell'utente. Non esegue invii, né invii massivi. Il flag **Non contattare** blocca i link email di quella scheda.
-- Lo stato dei contatti, le date di follow-up, i flag di esclusione e le note sono locali al browser e possono essere cancellati se si svuota la memoria del sito.
+- Gli indirizzi email nelle schede sono mostrati come testo per consultazione e non avviano un programma di posta.
+- Lo stato dei contatti, le date di follow-up e le note sono locali al browser e possono essere cancellati se si svuota la memoria del sito.
 
 Il catalogo è un punto di partenza da aggiornare e ricontrollare prima di ogni contatto; non costituisce una certificazione della disponibilità o dell'attualità di tutti i servizi offerti.

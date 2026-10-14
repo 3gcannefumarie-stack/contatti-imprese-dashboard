@@ -145,105 +145,6 @@
     return link;
   }
 
-  function emailsFrom(value) {
-    return [...new Set((value.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || []).map((email) => email.toLowerCase()))];
-  }
-
-  function bulkEmailRecipients() {
-    const includeUnconfirmed = document.querySelector("#include-unconfirmed-emails").checked;
-    const includePrivate = document.querySelector("#include-private-emails").checked;
-    const allContacts = [...state.publicContacts, ...state.privateContacts];
-    const blocked = new Set();
-    allContacts.forEach((contact) => {
-      if (getTracking(contact).doNotContact) emailsFrom(contact.email).forEach((email) => blocked.add(email));
-    });
-    const eligible = state.publicContacts.filter((contact) => includeUnconfirmed || contact.verificationStatus === "verified");
-    if (includePrivate) eligible.push(...state.privateContacts);
-    return [...new Set(eligible.flatMap((contact) => emailsFrom(contact.email)))]
-      .filter((email) => !blocked.has(email))
-      .sort((left, right) => left.localeCompare(right));
-  }
-
-  function updateBulkEmailRecipientCount() {
-    const count = bulkEmailRecipients().length;
-    document.querySelector("#bulk-email-recipient-count").textContent = `${count} ${count === 1 ? "destinatario" : "destinatari"}`;
-  }
-
-  function encodeBase64Utf8(value) {
-    const bytes = new TextEncoder().encode(value);
-    let binary = "";
-    bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
-    return btoa(binary);
-  }
-
-  function foldEmailHeader(name, values) {
-    const prefix = `${name}: `;
-    let line = prefix;
-    const lines = [];
-    values.forEach((value, index) => {
-      const part = `${index ? ", " : ""}${value}`;
-      if (line.length + part.length > 76 && line.length > prefix.length) {
-        lines.push(line);
-        line = ` ${value}`;
-      } else {
-        line += part;
-      }
-    });
-    lines.push(line);
-    return lines.join("\r\n");
-  }
-
-  function downloadEmailDraft(event) {
-    event.preventDefault();
-    const recipients = bulkEmailRecipients();
-    const status = document.querySelector("#bulk-email-status");
-    if (!document.querySelector("#bulk-email-lawful-basis").checked) {
-      status.classList.add("has-error");
-      status.textContent = "Conferma di avere titolo per contattare i destinatari prima di preparare la bozza.";
-      return;
-    }
-    if (!recipients.length) {
-      status.classList.add("has-error");
-      status.textContent = "Nessun destinatario disponibile: controlla le opzioni o i flag “Non contattare”.";
-      return;
-    }
-
-    const values = new FormData(document.querySelector("#bulk-email-form"));
-    const subject = text(values.get("subject")).replace(/[\r\n]+/g, " ");
-    const body = text(values.get("body")).replace(/\r\n?/g, "\n");
-    if (!subject || !body) {
-      status.classList.add("has-error");
-      status.textContent = "Inserisci un oggetto e un messaggio.";
-      return;
-    }
-
-    const encodedBody = encodeBase64Utf8(body).match(/.{1,76}/g).join("\r\n");
-    const encodedSubject = encodeBase64Utf8(subject);
-    const messageId = `${Date.now()}.${Math.random().toString(36).slice(2)}@tregcannefumarie.it`;
-    const headers = [
-      "From: tecnico@tregcannefumarie.it",
-      "To:",
-      foldEmailHeader("Bcc", recipients),
-      `Date: ${new Date().toUTCString()}`,
-      `Message-ID: <${messageId}>`,
-      `Subject: =?UTF-8?B?${encodedSubject}?=`,
-      "MIME-Version: 1.0",
-      "Content-Type: text/plain; charset=UTF-8",
-      "Content-Transfer-Encoding: base64",
-    ];
-    const eml = `${headers.join("\r\n")}\r\n\r\n${encodedBody}\r\n`;
-    const url = URL.createObjectURL(new Blob([eml], { type: "message/rfc822" }));
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `bozza-email-contatti-${new Date().toISOString().slice(0, 10)}.eml`;
-    document.body.append(link);
-    link.click();
-    link.remove();
-    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
-    status.classList.remove("has-error");
-    status.textContent = `Bozza .eml scaricata con ${recipients.length} destinatari in Ccn. Aprila con Thunderbird, controlla account, destinatari e contenuto e inviala solo se appropriato.`;
-  }
-
   function firstPhone(value) {
     return value.split(/\s(?:[-–—]|\/)\s|[;,]/, 1)[0].trim();
   }
@@ -262,7 +163,6 @@
     return state.tracking[contact.id] || {
       status: contact.status || "Da contattare",
       nextContact: contact.nextContact || "",
-      doNotContact: false,
       notes: contact.notes || "",
     };
   }
@@ -292,19 +192,7 @@
 
     const links = document.createElement("div");
     links.className = "contact-links";
-    const tracking = getTracking(contact);
-    const emails = emailsFrom(contact.email);
-    if (emails.length) {
-      emails.forEach((email) => {
-        const link = appendLink(links, `✉ ${email}`, `mailto:${encodeURIComponent(email)}`, "contact-link", "Apri una singola email nel tuo programma di posta");
-        link.addEventListener("click", (event) => {
-          if (tracking.doNotContact) {
-            event.preventDefault();
-            showMessage("Contatto bloccato: questa scheda è contrassegnata come do-not-contact.");
-          }
-        });
-      });
-    }
+    if (contact.email) appendText(links, "span", "contact-link", `✉ ${contact.email}`);
     if (contact.phone) {
       const phoneValue = firstPhone(contact.phone);
       const digits = phoneValue.replace(/[^\d+]/g, "");
@@ -340,15 +228,6 @@
     date.addEventListener("change", () => updateTracking(contact.id, { nextContact: date.value }));
     trackingSection.append(makeTrackingField("Stato", status, `status-${contact.id}`));
     trackingSection.append(makeTrackingField("Prossimo contatto", date, `date-${contact.id}`));
-    const extra = document.createElement("div");
-    extra.className = "tracking-extra";
-    const doNotContact = document.createElement("input");
-    doNotContact.type = "checkbox";
-    doNotContact.checked = tracking.doNotContact === true;
-    doNotContact.addEventListener("change", () => updateTracking(contact.id, { doNotContact: doNotContact.checked }));
-    const optOut = document.createElement("label");
-    optOut.className = "do-not-contact";
-    optOut.append(doNotContact, document.createTextNode("Non contattare"));
     const notes = document.createElement("input");
     notes.className = "track-notes";
     notes.type = "text";
@@ -357,8 +236,7 @@
     notes.value = tracking.notes || "";
     notes.setAttribute("aria-label", `Nota follow-up per ${contact.company}`);
     notes.addEventListener("change", () => updateTracking(contact.id, { notes: notes.value }));
-    extra.append(optOut, notes);
-    trackingSection.append(extra);
+    trackingSection.append(notes);
     card.append(trackingSection);
     return card;
   }
@@ -366,10 +244,6 @@
   function updateTracking(id, changes) {
     state.tracking[id] = { ...getTracking({ id, status: "Da contattare" }), ...changes };
     saveStoredJson(TRACKING_KEY, state.tracking);
-    if (Object.prototype.hasOwnProperty.call(changes, "doNotContact")) {
-      render();
-      if (document.querySelector("#bulk-email-dialog").open) updateBulkEmailRecipientCount();
-    }
   }
 
   function currentContacts() {
@@ -525,20 +399,6 @@
     document.querySelector("#close-dialog").addEventListener("click", () => elements.dialog.close());
     document.querySelector("#cancel-dialog").addEventListener("click", () => elements.dialog.close());
     elements.form.addEventListener("submit", addPrivateContact);
-    const bulkEmailDialog = document.querySelector("#bulk-email-dialog");
-    const bulkEmailForm = document.querySelector("#bulk-email-form");
-    const bulkEmailStatus = document.querySelector("#bulk-email-status");
-    document.querySelector("#bulk-email-button").addEventListener("click", () => {
-      bulkEmailStatus.textContent = "";
-      bulkEmailStatus.classList.remove("has-error");
-      updateBulkEmailRecipientCount();
-      bulkEmailDialog.showModal();
-    });
-    document.querySelector("#bulk-email-close").addEventListener("click", () => bulkEmailDialog.close());
-    document.querySelector("#bulk-email-cancel").addEventListener("click", () => bulkEmailDialog.close());
-    document.querySelector("#include-unconfirmed-emails").addEventListener("change", updateBulkEmailRecipientCount);
-    document.querySelector("#include-private-emails").addEventListener("change", updateBulkEmailRecipientCount);
-    bulkEmailForm.addEventListener("submit", downloadEmailDraft);
     document.addEventListener("keydown", (event) => {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
