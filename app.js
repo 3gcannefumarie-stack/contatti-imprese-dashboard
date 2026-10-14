@@ -197,6 +197,11 @@
     event.preventDefault();
     const recipients = bulkEmailRecipients();
     const status = document.querySelector("#bulk-email-status");
+    if (!document.querySelector("#bulk-email-lawful-basis").checked) {
+      status.classList.add("has-error");
+      status.textContent = "Conferma di avere titolo per contattare i destinatari prima di preparare la bozza.";
+      return;
+    }
     if (!recipients.length) {
       status.classList.add("has-error");
       status.textContent = "Nessun destinatario disponibile: controlla le opzioni o i flag “Non contattare”.";
