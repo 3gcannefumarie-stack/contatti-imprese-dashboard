@@ -192,6 +192,7 @@
 
     const links = document.createElement("div");
     links.className = "contact-links";
+    const tracking = getTracking(contact);
     if (contact.email) appendText(links, "span", "contact-link", `✉ ${contact.email}`);
     if (contact.phone) {
       const phoneValue = firstPhone(contact.phone);
