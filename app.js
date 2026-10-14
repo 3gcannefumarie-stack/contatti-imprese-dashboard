@@ -177,7 +177,7 @@
     if (subtitle) appendText(title, "p", "card-subtitle", subtitle);
     heading.append(title);
     const badge = appendText(heading, "span", `quality-badge${contact.publicListing ? "" : " review"}`, contact.publicListing ? "Fonte verificata" : "Da verificare");
-    badge.title = contact.publicListing ? "Recapito aziendale verificato su fonte pubblica" : "Dato importato, non verificato per la pubblicazione";
+    badge.title = contact.publicListing ? "Recapito professionale pubblicato nella fonte indicata e verificato" : "Dato importato, non verificato per la pubblicazione";
     card.append(heading);
 
     const location = [contact.address, contact.location, contact.region].filter(Boolean).join(" · ");
