@@ -8,7 +8,7 @@ Apri `index.html` in un browser o pubblica i file statici con GitHub Pages. La d
 
 Per caricare i contatti già raccolti, passa a **Miei contatti** e importa `contatti-locali.json`, presente nella cartella di lavoro ma non pubblicato. L'archivio personale e le note di follow-up vengono salvati nel `localStorage` del browser; non sono inviati al server. Usa **Esporta archivio** per salvare una copia privata. Questi dati resteranno sul dispositivo e nel profilo browser utilizzati per l'importazione.
 
-Gli indirizzi email nelle schede sono mostrati come testo e non avviano un programma di posta.
+Gli indirizzi email nelle schede sono cliccabili e aprono un nuovo messaggio nel programma di posta predefinito, indirizzato a un singolo contatto. Per aprirli con Thunderbird, configuralo come gestore predefinito dei link `mailto:` in Windows e nel browser. La rubrica non prepara né invia messaggi collettivi.
 
 ## Fonti e limiti
 
@@ -20,7 +20,7 @@ Gli indirizzi email nelle schede sono mostrati come testo e non avviano un progr
 - Le email da archivio sono marcate **Email non verificata** e la provenienza è indicata senza inventare URL o date di verifica. Il dataset minimale generato è pubblicato, ma i fogli ODS e `contatti-locali.json` restano esclusi dal sito.
 - I fogli ODS originali, gli altri recapiti personali e gli identificativi fiscali non sono pubblicati.
 - La raccolta pubblica non è esaustiva: la copertura amministratori è più ampia a Vicenza (elenco ANACI 2025), mentre Brescia, Mantova e Alto Garda hanno ancora poche schede verificate. La ricerca di amministrazioni, imprese edili, idrauliche, termoidrauliche, fumisti, installatori e fornitori di materiali resta da completare, soprattutto per Nago-Torbole, la sponda bresciana del Garda e le province di Mantova e Vicenza. I fogli originali non sono stati promossi alla directory pubblica perché la loro presenza non verifica da sola i recapiti.
-- Gli indirizzi email nelle schede sono mostrati come testo per consultazione e non avviano un programma di posta.
+- Gli indirizzi email nelle schede sono cliccabili e aprono un nuovo messaggio nel programma di posta predefinito, indirizzato a un singolo contatto. Per aprirli con Thunderbird, configuralo come gestore predefinito dei link `mailto:` in Windows e nel browser. La rubrica non prepara né invia messaggi collettivi.
 - Lo stato dei contatti, le date di follow-up e le note sono locali al browser e possono essere cancellati se si svuota la memoria del sito.
 
 Il catalogo è un punto di partenza da aggiornare e ricontrollare prima di ogni contatto; non costituisce una certificazione della disponibilità o dell'attualità di tutti i servizi offerti.

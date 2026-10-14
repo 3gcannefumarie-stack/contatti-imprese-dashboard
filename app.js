@@ -145,6 +145,10 @@
     return link;
   }
 
+  function emailsFrom(value) {
+    return [...new Set((value.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || []).map((email) => email.toLowerCase()))];
+  }
+
   function firstPhone(value) {
     return value.split(/\s(?:[-–—]|\/)\s|[;,]/, 1)[0].trim();
   }
@@ -193,7 +197,9 @@
     const links = document.createElement("div");
     links.className = "contact-links";
     const tracking = getTracking(contact);
-    if (contact.email) appendText(links, "span", "contact-link", `✉ ${contact.email}`);
+    emailsFrom(contact.email).forEach((email) => {
+      appendLink(links, `✉ ${email}`, `mailto:${email}`, "contact-link", `Scrivi a ${email} nel programma di posta predefinito`);
+    });
     if (contact.phone) {
       const phoneValue = firstPhone(contact.phone);
       const digits = phoneValue.replace(/[^\d+]/g, "");

@@ -89,7 +89,7 @@ kbd { color: #93a09e; font: 10px "Segoe UI", Arial, sans-serif; border: 1px soli
 .card-location::before { content: "⌖"; color: #348d78; margin-right: 6px; }
 .contact-links { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
 .contact-link, .website-link { display: inline-flex; align-items: center; gap: 5px; color: #176e63; background: #f0f7f3; border: 1px solid #e0eee7; border-radius: 7px; padding: 7px 9px; text-decoration: none; font-size: 10px; font-weight: 600; overflow-wrap: anywhere; }
-.website-link:hover { background: #e3f1e9; }
+.contact-link:hover, .website-link:hover { background: #e3f1e9; }
 .source-line { display: flex; justify-content: space-between; gap: 8px; color: #99a3a0; font-size: 9px; line-height: 1.4; margin-top: 12px; }
 .source-line a { color: #578579; }
 .tracking { border-top: 1px solid #edf1ee; margin-top: 13px; padding-top: 11px; display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
