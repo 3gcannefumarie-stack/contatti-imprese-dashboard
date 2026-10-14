@@ -1,0 +1,40 @@
+window.PUBLIC_CONTACTS.push(...[
+  {
+    id: "rdg-amministrazioni-riva-del-garda",
+    name: "",
+    company: "RdG Amministrazioni Srls",
+    location: "Riva del Garda (TN)",
+    region: "Alto Garda trentino",
+    category: "Amministrazione condominiale",
+    email: "info@rdgamministrazioni.it",
+    phone: "+39 0464 076 236",
+    website: "https://www.rdgamministrazioni.it/",
+    sourceLabel: "Sito ufficiale · contatti",
+    sourceUrl: "https://www.rdgamministrazioni.it/contatti.html",
+    verifiedAt: "2026-10-14",
+    quality: "Fonte pubblica verificata",
+    publicListing: true,
+    status: "Da contattare",
+    nextContact: "",
+    notes: "La pagina contatti ufficiale indica la sede di Riva del Garda, il telefono aziendale e l'email per richieste generiche e preventivi."
+  },
+  {
+    id: "studio-tecnico-2-erre-toscolano-maderno",
+    name: "",
+    company: "Studio Tecnico 2 Erre",
+    location: "Toscolano Maderno (BS)",
+    region: "Brescia",
+    category: "Amministrazione condominiale",
+    email: "",
+    phone: "+39 0365 642108",
+    website: "http://www.studiotecnico2erre.it/",
+    sourceLabel: "Sito ufficiale · contatti",
+    sourceUrl: "http://www.studiotecnico2erre.it/1/contatti_3286625.html",
+    verifiedAt: "2026-10-14",
+    quality: "Fonte pubblica verificata",
+    publicListing: true,
+    status: "Da contattare",
+    nextContact: "",
+    notes: "La pagina contatti ufficiale indica la sede in Viale Marconi 9 a Toscolano Maderno e il telefono dello studio. Il sito descrive l'attivita di amministrazione condominiale; non pubblica un indirizzo email leggibile, percio il campo e lasciato vuoto."
+  }
+]);
