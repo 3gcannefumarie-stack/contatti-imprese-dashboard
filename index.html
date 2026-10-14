@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#132b31">
+    <meta name="description" content="Rubrica di contatti professionali per imprese e amministratori nelle province di Brescia, Mantova, Vicenza e Alto Garda.">
+    <title>Rubrica imprese e amministratori</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="public-contacts.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Rubrica contatti, pagina iniziale">
+          <span class="brand-mark" aria-hidden="true">RC</span>
+          <span>
+            <strong>Rubrica contatti</strong>
+            <small>Imprese · Casa · Impianti</small>
+          </span>
+        </a>
+        <span class="topbar-note"><span class="status-dot"></span> Archivio professionale</span>
+      </header>
+
+      <main>
+        <section class="intro">
+          <p class="eyebrow">Prospezione locale, con fonti tracciate</p>
+          <h1>Trova il prossimo<br><span>contatto giusto.</span></h1>
+          <p class="intro-copy">Amministratori condominiali e imprese con attinenza a impianti, edilizia e canne fumarie. Cerca, filtra e organizza i follow-up in un unico posto.</p>
+          <div class="coverage-tags" aria-label="Aree geografiche">
+            <span>Brescia</span><span>Mantova</span><span>Vicenza</span><span>Alto Garda TN</span>
+            <span class="excluded">Verona esclusa</span>
+          </div>
+        </section>
+
+        <section class="workspace" aria-label="Rubrica contatti">
+          <div class="workspace-head">
+            <div>
+              <p class="eyebrow">La tua rubrica</p>
+              <h2 id="workspace-title">Directory pubblica</h2>
+            </div>
+            <div class="workspace-tabs" role="tablist" aria-label="Tipo di archivio">
+              <button class="tab is-active" id="tab-public" role="tab" aria-selected="true" aria-controls="contact-panel" data-view="public">Directory pubblica <span id="public-count" class="tab-count">0</span></button>
+              <button class="tab" id="tab-private" role="tab" aria-selected="false" aria-controls="contact-panel" data-view="private">Miei contatti <span id="private-count" class="tab-count">0</span></button>
+            </div>
+          </div>
+
+          <div id="privacy-notice" class="notice">
+            <span class="notice-icon" aria-hidden="true">i</span>
+            <p><strong>Elenco verificato, non esaustivo.</strong> Qui compaiono solo recapiti aziendali pubblicati e verificati sulle fonti indicate. I fogli originali non sono pubblicati.</p>
+          </div>
+
+          <div class="private-tools" id="private-tools" hidden>
+            <div>
+              <strong>Archivio privato di questo browser</strong>
+              <p>Importa <code>contatti-locali.json</code> dalla cartella CONTATTI. I dati restano sul dispositivo e non vengono inviati al sito.</p>
+            </div>
+            <div class="tool-buttons">
+              <label class="button button-secondary file-button" for="import-file">Importa JSON</label>
+              <input id="import-file" type="file" accept=".json,application/json" hidden>
+              <button class="button button-secondary" id="export-button" type="button">Esporta archivio</button>
+              <button class="button button-primary" id="add-button" type="button">+ Nuovo contatto</button>
+            </div>
+            <p id="import-status" class="import-status" role="status" aria-live="polite"></p>
+          </div>
+
+          <div class="filters">
+            <label class="search-box">
+              <span class="sr-only">Cerca azienda, località o recapito</span>
+              <span class="search-icon" aria-hidden="true">⌕</span>
+              <input id="search" type="search" placeholder="Cerca azienda, località o recapito…" autocomplete="off">
+              <kbd>Ctrl K</kbd>
+            </label>
+            <label class="select-wrap">
+              <span class="sr-only">Filtra per area</span>
+              <select id="region-filter">
+                <option value="">Tutte le aree</option>
+                <option value="Brescia">Brescia</option>
+                <option value="Mantova">Mantova</option>
+                <option value="Vicenza">Vicenza</option>
+                <option value="Alto Garda trentino">Alto Garda trentino</option>
+              </select>
+            </label>
+            <label class="select-wrap">
+              <span class="sr-only">Filtra per categoria</span>
+              <select id="category-filter">
+                <option value="">Tutte le categorie</option>
+                <option value="Amministrazione condominiale">Amministratori condominiali</option>
+                <option value="Edilizia">Edilizia</option>
+                <option value="Idraulica e termoidraulica">Idraulica e termoidraulica</option>
+                <option value="Riscaldamento e stufe">Riscaldamento e stufe</option>
+                <option value="Camini e canne fumarie">Camini e canne fumarie</option>
+                <option value="Servizi tecnici">Servizi tecnici affini</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="results-bar">
+            <p id="results-count" aria-live="polite">Caricamento rubrica…</p>
+            <span class="quality-key"><i class="quality-dot quality-verified"></i> Fonte verificata <i class="quality-dot quality-review"></i> Da verificare</span>
+          </div>
+
+          <div id="contact-panel" role="tabpanel" aria-labelledby="tab-public">
+            <div id="contact-list" class="contact-grid"></div>
+            <div id="empty-state" class="empty-state" hidden>
+              <span class="empty-icon" aria-hidden="true">⌕</span>
+              <h3>Nessun contatto in questa vista</h3>
+              <p id="empty-copy">Prova a cambiare i filtri oppure importa l’archivio privato per iniziare.</p>
+            </div>
+          </div>
+
+          <footer class="workspace-footer">
+            <span>Ogni scheda include la fonte e la data di verifica, quando disponibili.</span>
+            <span>Solo contatti individuali · nessun invio massivo</span>
+          </footer>
+        </section>
+
+        <section class="coverage" aria-label="Copertura e criteri">
+          <div class="coverage-title">
+            <p class="eyebrow">Copertura attuale</p>
+            <h2>Meglio pochi dati solidi<br>che una lista senza fonti.</h2>
+          </div>
+          <div class="coverage-stats">
+            <div><strong id="verified-stat">0</strong><span>contatti pubblici<br>verificati</span></div>
+            <div><strong id="local-stat">0</strong><span>contatti privati<br>da verificare</span></div>
+            <div><strong>0</strong><span>contatti della<br>provincia di Verona</span></div>
+          </div>
+          <p class="coverage-footnote">La raccolta non è esaustiva. I fogli forniti contengono soprattutto amministratori: non sono stati trovati elenchi di imprese edili, idrauliche o fumisti. Nessun recapito mancante è stato dedotto o inventato.</p>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>Rubrica di lavoro · © <span id="year"></span></span>
+        <span>Le preferenze di contatto sono salvate solo nel tuo browser.</span>
+      </footer>
+    </div>
+
+    <dialog id="contact-dialog" class="contact-dialog">
+      <form id="contact-form">
+        <div class="dialog-head">
+          <div><p class="eyebrow">Archivio privato</p><h2>Nuovo contatto</h2></div>
+          <button class="close-button" id="close-dialog" type="button" aria-label="Chiudi">×</button>
+        </div>
+        <div class="form-grid">
+          <label class="form-field full-width">Azienda / studio <input name="company" required maxlength="140"></label>
+          <label class="form-field">Categoria
+            <select name="category">
+              <option>Amministrazione condominiale</option><option>Edilizia</option><option>Idraulica e termoidraulica</option>
+              <option>Riscaldamento e stufe</option><option>Camini e canne fumarie</option><option>Servizi tecnici</option>
+            </select>
+          </label>
+          <label class="form-field">Area
+            <select name="region" required>
+              <option value="Brescia">Brescia</option><option value="Mantova">Mantova</option>
+              <option value="Vicenza">Vicenza</option><option value="Alto Garda trentino">Alto Garda trentino</option>
+            </select>
+          </label>
+          <label class="form-field full-width">Email aziendale <input name="email" type="text" placeholder="info@azienda.it"></label>
+          <label class="form-field">Telefono <input name="phone" type="tel"></label>
+          <label class="form-field">Sito web <input name="website" type="url" placeholder="https://"></label>
+          <label class="form-field full-width">Fonte / URL verificabile <input name="sourceUrl" type="url" placeholder="https://"></label>
+          <label class="form-field full-width">Note <textarea name="notes" rows="3"></textarea></label>
+        </div>
+        <p class="form-hint">I nuovi contatti restano privati e non vengono aggiunti alla directory pubblica.</p>
+        <div class="dialog-actions"><button class="button button-secondary" id="cancel-dialog" type="button">Annulla</button><button class="button button-primary" type="submit">Salva contatto</button></div>
+      </form>
+    </dialog>
+  </body>
+</html>
