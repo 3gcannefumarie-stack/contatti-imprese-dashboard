@@ -1,0 +1,5 @@
+# Source spreadsheets and local-only leads: never publish these files.
+*.ods
+contatti-locali.json
+contatti-privati-backup.json
+Thumbs.db
