@@ -322,7 +322,10 @@
     saveStoredJson(PRIVATE_KEY, state.privateContacts);
     render();
     elements.importStatus.classList.remove("has-error");
-    elements.importStatus.textContent = `${imported.length - rejected} contatti importati o aggiornati. ${rejected ? `${rejected} righe escluse (fuori area o non valide).` : "Nessun dato è stato caricato sul server."}`;
+    const accepted = imported.length - rejected;
+    const acceptedLabel = `${accepted} ${accepted === 1 ? "contatto importato o aggiornato" : "contatti importati o aggiornati"}`;
+    const rejectedLabel = rejected ? ` ${rejected} ${rejected === 1 ? "riga esclusa" : "righe escluse"} (fuori area o non valide).` : " Nessun dato è stato caricato sul server.";
+    elements.importStatus.textContent = acceptedLabel + "." + rejectedLabel;
   }
 
   async function importFile(file) {
