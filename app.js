@@ -184,7 +184,7 @@
     const badge = appendText(heading, "span", `quality-badge${isVerified ? "" : " review"}`, badgeText);
     badge.title = isVerified
       ? "Recapito professionale pubblicato nella fonte indicata e verificato"
-      : isUnconfirmed ? "Email importata dall'archivio fornito dall'utente; non confermata online" : "Dato importato, non verificato per la pubblicazione";
+      : isUnconfirmed ? "Email non verificata indipendentemente" : "Dato importato, non verificato per la pubblicazione";
     card.append(heading);
 
     const location = [contact.address, contact.location, contact.region].filter(Boolean).join(" · ");
@@ -207,8 +207,8 @@
     appendText(source, "span", "", contact.sourceLabel || "Fonte non specificata");
     if (contact.sourceUrl) appendLink(source, "Fonte ↗", contact.sourceUrl, "", `Apri fonte: ${contact.sourceUrl}`);
     else if (contact.verifiedAt) appendText(source, "span", "", "Fonte URL non disponibile");
-    if (contact.verifiedAt) appendText(source, "span", "", `Verificato ${contact.verifiedAt}`);
-    else if (contact.sourceCheckedAt) appendText(source, "span", "", `Importato dall’archivio ${contact.sourceCheckedAt}`);
+    if (!isUnconfirmed && contact.verifiedAt) appendText(source, "span", "", `Verificato ${contact.verifiedAt}`);
+    else if (!isUnconfirmed && contact.sourceCheckedAt) appendText(source, "span", "", `Importato dall’archivio ${contact.sourceCheckedAt}`);
     card.append(source);
 
     const trackingSection = document.createElement("div");
