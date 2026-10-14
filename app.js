@@ -276,7 +276,9 @@
     });
 
     elements.list.replaceChildren(...filtered.map(cardFor));
-    elements.count.textContent = `${filtered.length} ${filtered.length === 1 ? "contatto" : "contatti"} ${state.view === "public" ? "pubblici verificati" : "nell’archivio locale"}`;
+    elements.count.textContent = state.view === "public"
+      ? `${filtered.length} ${filtered.length === 1 ? "contatto pubblico verificato" : "contatti pubblici verificati"}`
+      : `${filtered.length} ${filtered.length === 1 ? "contatto nell’archivio locale" : "contatti nell’archivio locale"}`;
     elements.empty.hidden = filtered.length > 0;
     elements.emptyCopy.textContent = state.view === "public"
       ? "La directory è in costruzione e contiene solo recapiti verificati. Importa il tuo archivio privato o modifica i filtri."
