@@ -12,6 +12,7 @@ window.PUBLIC_CONTACTS = [
     sourceLabel: "Email fornita dall’utente · non verificata indipendentemente",
     sourceUrl: "https://www.amministrazionibonaldo.it/",
     verifiedAt: "2026-10-14",
+    verificationStatus: "unconfirmed",
     quality: "Fonte pubblica verificata",
     publicListing: true,
     status: "Da contattare",
