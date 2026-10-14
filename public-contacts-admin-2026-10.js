@@ -44,7 +44,7 @@ window.PUBLIC_CONTACTS.push(...[
     location: "Borgo Poncarale (BS)",
     region: "Brescia",
     category: "Amministrazione condominiale",
-    email: "info@condominiobrescia.it",
+    email: "",
     phone: "+39 347 8314737",
     website: "https://condominiobrescia.it/",
     sourceLabel: "Sito ufficiale · contatti",

@@ -562,7 +562,7 @@ window.PUBLIC_CONTACTS.push(...[
         "name":  "Mitia Manetti",
         "region":  "Vicenza",
         "category":  "Amministrazione condominiale",
-        "email":  "mitiamanetti@alice.it",
+        "email":  "",
         "phone":  "0444542673",
         "website":  "",
         "sourceLabel":  "ANACI Vicenza - elenco amministratori iscritti 2025",

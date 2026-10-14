@@ -209,7 +209,7 @@
         "location":  "Mantova",
         "region":  "Mantova",
         "category":  "Amministrazione condominiale",
-        "email":  "info.livingh24@gmail.com; info.livingh24@pec.it",
+        "email":  "info.livingh24@gmail.com",
         "sourceLabel":  "Archivio utente (email non verificata online)",
         "sourceUrl":  "",
         "verifiedAt":  "",
@@ -425,4 +425,3 @@
         "notes":  ""
     }
 ]);
-
